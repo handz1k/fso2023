@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit"
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -6,8 +8,6 @@ const anecdotesAtStart = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
-
-
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -21,41 +21,31 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'ADD_LIKES': {
-      const anecdoteId = action.payload.id
+
+const anecdoteSlice = createSlice ({
+  name: 'anecdotes',
+  initialState: initialState,
+  reducers: {
+    addLike(state, action) {
+      const anecdoteId = action.payload
       const anecdoteToChange = state.find(a => a.id === anecdoteId)
       const changedAnecdote = {
         ...anecdoteToChange,
         votes: anecdoteToChange.votes + 1
       }
-      return state.map(anecdote => anecdote.id !== anecdoteId ? anecdote : changedAnecdote).sort((anecdote, secondAnecdote) => secondAnecdote.votes - anecdote.votes)
-    }
-    case 'ADD_ANECDOTE': {
-      return [...state, action.payload]
-    }
-    default:
-      return state
-  }
-}
-
-export const addLike = (id) => {
-  return {
-    type: 'ADD_LIKES',
-    payload: { id }
-  }
-}
-
-export const createAnecdote = (content) => {
-  return {
-    type: 'ADD_ANECDOTE',
-    payload: {
-      content,
-      votes: 0,
-      id: getId()
+      return state.map(anecdote => anecdote.id !== anecdoteId ? anecdote : changedAnecdote)
+      .sort((anecdote, secondAnecdote) => secondAnecdote.votes - anecdote.votes)
+    },
+    createAnecdote(state, action) {
+      const content = action.payload
+      state.push({
+        content,
+        votes: 0,
+        id: getId(),
+      })
     }
   }
-}
+})
 
-export default reducer
+export const { addLike, createAnecdote } = anecdoteSlice.actions
+export default anecdoteSlice.reducer
