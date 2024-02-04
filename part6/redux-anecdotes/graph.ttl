@@ -1,0 +1,101 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xmls: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix : <http://myprefixdomain.somesuffix/optionalpath/> .
+
+
+:Work a rdfs:Class ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:Book a rdfs:Class ;
+  rdfs:subClassOf :Work ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:Novel a rdfs:Class ;
+  rdfs:subClassOf :Book ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:Poem a rdfs:Class ;
+  rdfs:subClassOf :Book ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:Composition a rdfs:Class ;
+  rdfs:subClassOf :Work ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:PopMusicComposition a rdfs:Class ;
+  rdfs:subClassOf :Composition ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:ClassicalComposition a rdfs:Class ;
+  rdfs:subClassOf :Composition ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:Movie a rdfs:Class ;
+  rdfs:subClassOf :Work ;
+  rdfs:label "Finnish"@fi ;
+  rdfs:label "English"@en .
+
+:creator a rdfs:Property ;
+  rdfs:subPropertyOf dc:creator;
+  rdfs:domain :Work ;
+  rdfs:range foaf:Person .
+
+:writer a rdfs:Property ;
+  rdfs:subPropertyOf :creator ;
+  rdfs:domain :Book ;
+  rdfs:range foaf:Person .
+
+:composer a rdfs:Property ;
+  rdfs:subPropertyOf :creator ;
+  rdfs:domain :Composition ;
+  rdfs:range foaf:Person .
+
+:director a rdfs:Property ;
+  rdfs:subPropertyOf :creator ;
+  rdfs:domain :Movie ;
+  rdfs:range foaf:Person .
+
+:creationTime a rdfs:Property ;
+  rdfs:domain :Work ;
+  rdfs:range xmls:date .
+
+:pageCount a rdfs:Property ;
+  rdfs:domain :Book ;
+  rdfs:range xmls:integer .
+
+:NovelInstance a :Novel ;
+  rdfs:label "The Man In The Vail"@en ;
+  :writer :MarkAit ;
+  :creationTime "11-11-1911"^^xmls:date ;
+  :pageCount "500"^^xmls:integer .
+
+:PoemInstance a :Poem ;
+  rdfs:label "The Man In The Village"@en ;
+  :writer :MarkAit ;
+  :creationTime "12-12-1912"^^xmls:date ;
+  :pageCount "400"^^xmls:integer .
+  
+:PopMusicCompositionInstance a :PopMusicComposition ;
+  rdfs:label "Trancer"@en ;
+  :composer :MarkAit ;
+  :creationTime "11-11-2000"^^xmls:date .
+
+:ClassicalCompositionInstance a :ClassicalComposition ;
+  rdfs:label "ClassicTrancer"@en ;
+  :composer :MarkAit ;
+  :creationTime "11-11-2001"^^xmls:date .
+
+:MovieInstance a :Movie ;
+  rdfs:label "Silent Hill"@en ;
+  :director :MarkAit ;
+  :creationTime "11-11-2021"^^xmls:date .
