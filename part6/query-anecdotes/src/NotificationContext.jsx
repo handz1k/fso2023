@@ -15,7 +15,7 @@ const notificationReducer = (state, action) => {
       }
       return ''
     default:
-      return console.log('lol')
+      return console.log('edit to commit')
   }
 }
 
