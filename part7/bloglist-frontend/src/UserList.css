@@ -1,0 +1,15 @@
+.user-entry {
+  display: flex;
+  padding: 5px 0;
+}
+
+.user-name {
+  margin-right: 15px; 
+}
+
+.users-header {
+  margin-left: 75px;
+}
+.blog-count {
+  text-align: left;
+}
